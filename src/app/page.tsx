@@ -1,9 +1,26 @@
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { prisma } from "@/lib/prismaClient";
+import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+
+  const snippets = await prisma.snippet.findMany();
+  if(!snippets || snippets.length == 0) {
+    return <p>No snippets found</p>
+  }
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <p>Snippety home</p>
+    <div className="w-screen h-screen flex flex-col justify-center items-center">
+      <h3 className="text-2xl bold">Snippet Lists:</h3>\
+      {
+        snippets?.map(snippet => (
+          <div key={snippet.id} className="border rounded-xl p-4">
+            <strong>Title: {snippet.title}</strong>
+            <p>Code: {snippet.code}</p>
+            <Link href={`/snippet/${snippet.id}`}><Button>View Snippet</Button></Link>
+          </div>
+        ))
+      }
     </div>
   );
 }

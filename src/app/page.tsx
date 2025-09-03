@@ -14,9 +14,8 @@ export default async function Home() {
       <h3 className="text-2xl bold">Snippet Lists:</h3>\
       {
         snippets?.map(snippet => (
-          <div key={snippet.id} className="border rounded-xl p-4">
+          <div key={snippet.id} className="border rounded-xl p-4 flex gap-x-10 items-center">
             <strong>Title: {snippet.title}</strong>
-            <p>Code: {snippet.code}</p>
             <Link href={`/snippet/${snippet.id}`}><Button>View Snippet</Button></Link>
           </div>
         ))

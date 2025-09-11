@@ -2,6 +2,9 @@ import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prismaClient";
 import Link from "next/link";
 
+// export const dynamic = 'force-dynamic'; //disable caching
+// export const revalidate = 0;
+
 export default async function Home() {
 
   const snippets = await prisma.snippet.findMany();
@@ -14,7 +17,7 @@ export default async function Home() {
       <h3 className="text-2xl bold">Snippet Lists:</h3>\
       {
         snippets?.map(snippet => (
-          <div key={snippet.id} className="border rounded-xl p-4 flex gap-x-10 items-center">
+          <div key={snippet.id} className="border rounded-xl w-full p-4 flex gap-x-10 items-center">
             <strong>Title: {snippet.title}</strong>
             <Link href={`/snippet/${snippet.id}`}><Button>View Snippet</Button></Link>
           </div>

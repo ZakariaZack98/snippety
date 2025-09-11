@@ -11,12 +11,13 @@ function EditSnippetForm({snippet}: {snippet: Snippet}) {
     setCode(value)
   }
 
-  const saveSnippetAction = saveSnippet.bind(null, snippet.id, snippet.code)
+  const saveSnippetAction = saveSnippet.bind(null, snippet.id, code);
 
   return (
     <div className='flex flex-col gap-4'>
-      <form action={saveSnippetAction} className='flex justify-between items-center'>
+      <form action={saveSnippetAction} className='flex flex-col justify-between items-center gap-x-20'>
         <h1 className="text-3xl">Your Code Editor</h1>
+        <textarea value={code} className='border' onChange={e => changeEventHandler(e.target.value)}/>
         <Button type='submit'>Save</Button>
       </form>
     </div>
